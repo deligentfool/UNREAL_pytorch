@@ -92,14 +92,14 @@ class pixel_control_net(nn.Module):
 
 
 class reward_prediction_net(nn.Module):
-    def __init__(self):
+    def __init__(self, stack_num=3):
         super(reward_prediction_net, self).__init__()
-
+        self.stack_num = stack_num
         self.reward_prediction_layer = nn.Sequential(
-            nn.Linear(256, 128),
+            nn.Linear(256 * self.stack_num, 128),
             nn.ReLU(),
-            nn.Linear(128, 2),
-            nn.Softmax(1)
+            nn.Linear(128, 1),
+            nn.Sigmoid()
         )
 
     def forward(self, conv_feature):

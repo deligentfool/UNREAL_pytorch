@@ -5,17 +5,17 @@ from shared_adam import SharedAdam
 import torch.multiprocessing as mp
 
 if __name__ == '__main__':
-    env_id = 'PongNoFrameskip-v4'
+    env_id = 'BreakoutNoFrameskip-v4'
     gamma = 0.99
     max_episode = 10000
-    capacity = 2000
+    capacity = 200
     train_freq = 20
     n_step = 4
     stack_num = 3
-    pc_weight = 0.5
-    rp_weight = 0.5
-    vr_weight = 0.5
-    batch_size = 64
+    pc_weight = 1.
+    rp_weight = 1.
+    vr_weight = 1.
+    batch_size = 32
     observation_dim = (3, 84, 84)
     entropy_weight = 1e-4
 
@@ -46,7 +46,7 @@ if __name__ == '__main__':
             observation_dim=observation_dim,
             entropy_weight=entropy_weight
         )
-        for i in range(mp.cpu_count())
+        for i in range(1)
     ]
     [worker.start() for worker in workers]
     res = []
